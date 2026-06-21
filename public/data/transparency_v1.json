@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-06-21",
+  "h3_resolution": 8,
+  "target": "Public web application for Shanghai 15-minute-city healthy access evaluation.",
+  "sources": [
+    {
+      "name": "基础通达层",
+      "source": "既有 15MC H3 基础评分 JSON / POI 2024 / 500m grid workflow",
+      "collection_date": "POI 2024; generated 2026-06",
+      "limitations": "基础通达分数来自前序 H3 汇聚结果，代表 15 分钟服务可达性近似，不等同于逐点真实路网等时圈。"
+    },
+    {
+      "name": "健康生活方式赛道",
+      "source": "Healthy LifestyleV1.py 指标规则、运动设施 POI、绿地代理指标",
+      "collection_date": "POI 2024; AI interpretation data 2023/2024",
+      "limitations": "健身房、泳池、瑜伽等设施基于分类和关键词识别，可能存在漏检和误判。"
+    },
+    {
+      "name": "陆地掩膜",
+      "source": "outputs/sports_desert/sports_desert_h3.parquet；回退来源为 data/10-AI解译数据/*建筑.shp",
+      "collection_date": "AI interpretation data 2023/2024; sports desert output generated locally",
+      "limitations": "采用建筑相交 H3 作为可居住陆域代理，用于剔除海域和江面；也可能排除少量无建筑的绿地、农田或湿地。"
+    },
+    {
+      "name": "AQI 空气质量",
+      "source": "上海市生态环境局公开历史查询导出的 2025 区级日均 AQI",
+      "collection_date": "2025-01-01 至 2025-12-31; package date 2026-06-15",
+      "limitations": "按行政区年平均 AQI 赋值到 H3，不能反映街区尺度污染差异或实时空气质量。"
+    },
+    {
+      "name": "地铁距离",
+      "source": "data/地铁数据/上海市_地铁站.shp",
+      "collection_date": "本地数据集; timestamp 字段约 2023",
+      "limitations": "采用 H3 中心点至最近既有地铁站的直线距离，不代表真实步行距离或站内换乘成本。"
+    },
+    {
+      "name": "租金/房价区间",
+      "source": "data/06-房价数据/上海市-房价数据.csv",
+      "collection_date": "本地房价点数据",
+      "limitations": "当前使用小区均价作为租金区间代理，非真实租金；无直接样本的 H3 使用最近小区点估计。"
+    }
+  ]
+}
